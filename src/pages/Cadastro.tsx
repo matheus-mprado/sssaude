@@ -35,9 +35,9 @@ interface CepData {
     localidade: string;
 }
 
-interface Categoria{
-    id:string;
-    category:string;
+interface Categoria {
+    id: string;
+    category: string;
 }
 
 const date = new Date();
@@ -120,15 +120,15 @@ export default function Cadastro() {
             .catch(err => console.log('Não localizado'))
     }
 
-    function getCategorys(){
+    function getCategorys() {
         api.get('/categorias/')
-            .then(response=>setCategorys(response.data))
+            .then(response => setCategorys(response.data))
             .catch(err => console.log(err))
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getCategorys()
-    },[])
+    }, [])
 
     return (
         <Flex
@@ -232,13 +232,17 @@ export default function Cadastro() {
                         value={selectDoenca}
                         onChange={(e) => setSelectDoenca(e.target.value)}
                     >
-                        {categorys && 
-                            categorys.map(category=>{
-                                return(
-                                    <option value={category.id} key={category.id}>{category.categoria}</option>
-                                )
-                            })
-                        }
+                        <>
+                            {categorys &&
+                                categorys.map(category => {
+                                    return (
+
+                                        <option value={category.id} key={category.id}>{category.categoria}</option>
+
+                                    )
+                                })
+                            }
+                        </>
                     </Select>
                 </Stack>
 
@@ -312,7 +316,7 @@ export default function Cadastro() {
                     name="accept"
                     label="DECLARO, para fins de direto, sob as penas da lei, que as informações prestadas para esta solicitação, são verdadeiros e autênticas. Tendo a ciência de que todas as informações prestadas poderão ser utilizadas pelos sistemas de saúde municipais, estaduais e federais."
                     {...register('accept')}
-                    
+
                 >
                     <Text fontSize="small">
                         Aceitar
