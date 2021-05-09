@@ -41,11 +41,9 @@ const signInFormSchema = yup.object().shape({
         .min(5, "Digite seu nome completo de sua mãe")
         .max(255, "Digite um nome Menor"),
 
-    dateBorn: yup.date()
-        .required('Insira uma data')
-        .max(dateConcat, "Digite uma Data Válida")
-        .nullable()
-        .typeError('Digite uma Data Válida'),
+    dateBorn: yup.string()
+        .required('Insira uma data'),
+
 
     fone: yup.string()
         .required('Número Obrigatório')
@@ -99,7 +97,7 @@ export default function Cadastro() {
 
     function handleSetCEP(cep:number){
         
-        axios.get(`http://correiosapi.apphb.com/cep/${cep}`)
+        axios.get(`https://viacep.com.br/ws/${cep}/json/`)
             .then(response => setTimeout(()=>console.log(response.data),2000))
     }
 
@@ -145,13 +143,10 @@ export default function Cadastro() {
 
                     <Input
                         name="dateBorn"
-                        type="date"
+                        type="text"
                         label="Data de Nascimento"
                         error={errors.dateBorn}
-                        defaultValue="1990-01-01"
-                        {...register('dateBorn', {
-                            valueAsDate: true,
-                        })}
+                        {...register('dateBorn')}
                     />
 
                     <Input
@@ -215,7 +210,7 @@ export default function Cadastro() {
                         label="CEP"
                         error={errors.cep}
                         {...register('cep')}
-                        // onChange={(e)=>handleSetCEP(Number(e.target.value))}
+                        onChange={(e)=>handleSetCEP(Number(e.target.value))}
                     />
 
                     <Input
