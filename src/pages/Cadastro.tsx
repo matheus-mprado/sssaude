@@ -2,6 +2,7 @@ import { Flex, Stack, Button, Text, InputGroup, InputRightElement, Box } from "@
 import { Input } from "../components/form/Input";
 import { Select } from "../components/form/select";
 import axios from "axios";
+import { useRouter } from 'next/router'
 import * as yup from 'yup'
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -32,7 +33,7 @@ type SignInFormData = {
 interface CepData {
     bairro: string;
     cep: string;
-    localidade: string;
+    logradouro: string;
 }
 
 interface Categoria {
@@ -53,6 +54,15 @@ const signInFormSchema = yup.object().shape({
         .required('Nome Obrigatório')
         .min(5, "Digite seu nome completo de sua mãe")
         .max(255, "Digite um nome Menor"),
+
+    cpf: yup.string()
+        .required('CPF Obrigatório')
+        .min(11, "Digite seu CPF")
+        .max(11, "Digite seu CPFr"),
+
+    email: yup.string()
+        .required('E-mail obrigatório')
+        .email('E-mail Inválido'),
 
     dateBorn: yup.string()
         .required('Insira uma data'),
@@ -90,7 +100,7 @@ const signInFormSchema = yup.object().shape({
 
 export default function Cadastro() {
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    const { setValue, register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: yupResolver(signInFormSchema)
     });
 
@@ -99,17 +109,22 @@ export default function Cadastro() {
     const [selectRaca, setSelectRaca] = useState('')
     const [cep, setCep] = useState(0)
     const [accept, setAccept] = useState(false)
+
     const [cepData, setCepData] = useState<CepData>({} as CepData)
+    const [bairro, setBairro] = useState('');
+
     const [categorys, setCategorys] = useState([])
 
-
+    const router = useRouter();
 
     const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
+
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         api.post('/', values)
-            .then(response => console.log(response))
+            .then(response => response.data === 'ok' && router.push("/sucesso"))
             .catch(err => console.log(err))
+
 
         console.log(values)
     }
@@ -118,16 +133,19 @@ export default function Cadastro() {
         axios.get(`https://viacep.com.br/ws/${cep}/json/`)
             .then(response => setCepData(response.data))
             .catch(err => console.log('Não localizado'))
+        console.log(cepData)
     }
 
     function getCategorys() {
         api.get('/categorias/')
             .then(response => setCategorys(response.data))
             .catch(err => console.log(err))
+
     }
 
     useEffect(() => {
         getCategorys()
+
     }, [])
 
     return (
@@ -169,6 +187,14 @@ export default function Cadastro() {
                     />
 
                     <Input
+                        name="cpf"
+                        type="text"
+                        label="CPF"
+                        error={errors.cpf}
+                        {...register('cpf')}
+                    />
+
+                    <Input
                         name="dateBorn"
                         type="text"
                         label="Data de Nascimento"
@@ -185,6 +211,16 @@ export default function Cadastro() {
                     />
 
                     <Input
+                        name="email"
+                        type="email"
+                        label="Email"
+                        error={errors.email}
+                        {...register('email')}
+                    />
+
+
+
+                    <Input
                         name="profissao"
                         type="text"
                         label="Profissão"
@@ -195,7 +231,7 @@ export default function Cadastro() {
 
                     <Select
                         name="genero"
-                        label="Genêro"
+                        label="Sexo"
                         error={errors.genero}
                         {...register('genero')}
                         value={selectGenero}
@@ -226,7 +262,7 @@ export default function Cadastro() {
 
                     <Select
                         name="doenca"
-                        label="Doenca"
+                        label="Categoria"
                         error={errors.doenca}
                         {...register('doenca')}
                         value={selectDoenca}
@@ -280,7 +316,7 @@ export default function Cadastro() {
                         type="text"
                         label="Logradouro"
                         error={errors.logradouro}
-                        value={cepData ? cepData.localidade : ''}
+                        {...setValue('logradouro', cepData.logradouro)}
                         {...register('logradouro')}
                     />
 
@@ -297,7 +333,7 @@ export default function Cadastro() {
                         type="text"
                         label="Bairro"
                         error={errors.bairro}
-                        value={cepData ? cepData.bairro : ''}
+                        {...setValue('bairro', cepData.bairro)}
                         {...register('bairro')}
                     />
 
@@ -316,8 +352,9 @@ export default function Cadastro() {
                     name="accept"
                     label="DECLARO, para fins de direto, sob as penas da lei, que as informações prestadas para esta solicitação, são verdadeiros e autênticas. Tendo a ciência de que todas as informações prestadas poderão ser utilizadas pelos sistemas de saúde municipais, estaduais e federais."
                     {...register('accept')}
-
-                >
+                    isChecked={accept}
+                    onChange={()=>setAccept(!accept)}
+                >   
                     <Text fontSize="small">
                         Aceitar
                     </Text>

@@ -12,7 +12,7 @@ interface InputProps extends CheckboxProps{
 }
 
 const InputBase:ForwardRefRenderFunction<HTMLInputElement,InputProps> =
-    ({name,label, error, mask,children}, ref) => {
+    ({name,label, error, ...rest}, ref) => {
 
     return (
         <FormControl isInvalid={!!error}>
@@ -28,9 +28,9 @@ const InputBase:ForwardRefRenderFunction<HTMLInputElement,InputProps> =
                 }}
                 size="lg"
                 ref={ref}
-                
+                {...rest}
             >
-                {children}
+                
             </ChakraCheckbox>
 
             {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
