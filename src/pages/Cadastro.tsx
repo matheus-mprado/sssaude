@@ -1,13 +1,15 @@
-import { Flex, Stack, Button, Text } from "@chakra-ui/react";
+import { Flex, Stack, Button, Text, InputGroup, InputRightElement, Box } from "@chakra-ui/react";
 import { Input } from "../components/form/Input";
 import { Select } from "../components/form/select";
-
-import { SubmitHandler, useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { api } from "../service/api";
-import { useState } from "react";
 import axios from "axios";
+import * as yup from 'yup'
+import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+
+import { api } from "../service/api";
+import { Checkbox } from "../components/Checkbox";
+
 
 type SignInFormData = {
     namePrimary: string;
@@ -27,6 +29,17 @@ type SignInFormData = {
     }
 }
 
+interface CepData {
+    bairro: string;
+    cep: string;
+    localidade: string;
+}
+
+interface Categoria{
+    id:string;
+    category:string;
+}
+
 const date = new Date();
 const dateConcat = (date.getFullYear() - 18) + "/" + (date.getMonth() + 1) + "/" + date.getDate();
 
@@ -43,7 +56,6 @@ const signInFormSchema = yup.object().shape({
 
     dateBorn: yup.string()
         .required('Insira uma data'),
-
 
     fone: yup.string()
         .required('Número Obrigatório')
@@ -83,7 +95,14 @@ export default function Cadastro() {
     });
 
     const [selectGenero, setSelectGenero] = useState('')
+    const [selectDoenca, setSelectDoenca] = useState('')
     const [selectRaca, setSelectRaca] = useState('')
+    const [cep, setCep] = useState(0)
+    const [accept, setAccept] = useState(false)
+    const [cepData, setCepData] = useState<CepData>({} as CepData)
+    const [categorys, setCategorys] = useState([])
+
+
 
     const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
         await new Promise(resolve => setTimeout(resolve, 2000));
@@ -95,16 +114,24 @@ export default function Cadastro() {
         console.log(values)
     }
 
-    function handleSetCEP(cep:number){
-        
+    function handleSetCEP(cep: number) {
         axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(response => setTimeout(()=>console.log(response.data),2000))
+            .then(response => setCepData(response.data))
+            .catch(err => console.log('Não localizado'))
     }
+
+    function getCategorys(){
+        api.get('/categorias/')
+            .then(response=>setCategorys(response.data))
+            .catch(err => console.log(err))
+    }
+
+    useEffect(()=>{
+        getCategorys()
+    },[])
 
     return (
         <Flex
-            w="100vw"
-            h="100vh"
             align="flex-start"
             px="4"
             justify="center"
@@ -124,7 +151,7 @@ export default function Cadastro() {
                     1 - Faça seu cadastro
                 </Text>
 
-                <Stack spacing="4">
+                <Stack spacing="8">
                     <Input
                         name="namePrimary"
                         type="text"
@@ -172,7 +199,7 @@ export default function Cadastro() {
                         error={errors.genero}
                         {...register('genero')}
                         value={selectGenero}
-                        onChange={(e) => setSelectGenero(e.target.value)}
+                        onClick={(e) => setSelectGenero(e.target.value)}
                     >
                         <>
                             <option value="Masculino">Masculino</option>
@@ -196,6 +223,23 @@ export default function Cadastro() {
                             <option value="Amarelo">Amarelo</option>
                         </>
                     </Select>
+
+                    <Select
+                        name="doenca"
+                        label="Doenca"
+                        error={errors.doenca}
+                        {...register('doenca')}
+                        value={selectDoenca}
+                        onChange={(e) => setSelectDoenca(e.target.value)}
+                    >
+                        {categorys && 
+                            categorys.map(category=>{
+                                return(
+                                    <option value={category.id} key={category.id}>{category.categoria}</option>
+                                )
+                            })
+                        }
+                    </Select>
                 </Stack>
 
 
@@ -203,21 +247,36 @@ export default function Cadastro() {
                     2 - Endereço
                 </Text>
 
-                <Stack spacing="4">
-                    <Input
-                        name="cep"
-                        type="text"
-                        label="CEP"
-                        error={errors.cep}
-                        {...register('cep')}
-                        onChange={(e)=>handleSetCEP(Number(e.target.value))}
-                    />
+                <Stack spacing="8" mb="8">
+                    <Box
+                        position="relative"
+                    >
+                        <Input
+                            name="cep"
+                            type="text"
+                            label="CEP"
+                            error={errors.cep}
+                            {...register('cep')}
+                            onChange={(e) => setCep(Number(e.target.value))}
+                        />
 
+                        <Button
+                            size="sm"
+                            onClick={() => handleSetCEP(cep)}
+                            position="absolute"
+                            right="0"
+                            top="2.1rem"
+                        >
+                            procurar
+                        </Button>
+
+                    </Box>
                     <Input
                         name="logradouro"
                         type="text"
                         label="Logradouro"
                         error={errors.logradouro}
+                        value={cepData ? cepData.localidade : ''}
                         {...register('logradouro')}
                     />
 
@@ -234,6 +293,7 @@ export default function Cadastro() {
                         type="text"
                         label="Bairro"
                         error={errors.bairro}
+                        value={cepData ? cepData.bairro : ''}
                         {...register('bairro')}
                     />
 
@@ -247,6 +307,17 @@ export default function Cadastro() {
 
                     />
                 </Stack>
+
+                <Checkbox
+                    name="accept"
+                    label="DECLARO, para fins de direto, sob as penas da lei, que as informações prestadas para esta solicitação, são verdadeiros e autênticas. Tendo a ciência de que todas as informações prestadas poderão ser utilizadas pelos sistemas de saúde municipais, estaduais e federais."
+                    {...register('accept')}
+                    
+                >
+                    <Text fontSize="small">
+                        Aceitar
+                    </Text>
+                </Checkbox>
                 <Button
                     type="submit"
                     mt="6"
@@ -257,8 +328,6 @@ export default function Cadastro() {
                     Cadastrar
                 </Button>
             </Flex>
-
-
-        </Flex>
+        </Flex >
     )
 }
