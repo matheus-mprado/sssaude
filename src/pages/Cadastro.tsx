@@ -199,7 +199,7 @@ export default function Cadastro() {
                         error={errors.genero}
                         {...register('genero')}
                         value={selectGenero}
-                        onClick={(e) => setSelectGenero(e.target.value)}
+                        onChange={(e) => setSelectGenero(e.target.value)}
                     >
                         <>
                             <option value="Masculino">Masculino</option>
