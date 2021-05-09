@@ -216,7 +216,7 @@ export default function Cadastro() {
                         label="Telefone"
                         
                         error={errors.fone}
-                        mask={isFoneResidencial >18 ? "(**) * **** - ****" : "(**) **** - ****"}
+                        mask={isFoneResidencial  < 18 ? "(**) * **** - ****" : "(**) **** - ****"}
                         onChange={(e)=>setIsFoneResidencial(Number(e.target.value.length))}
                         {...register('fone')}
                     />
