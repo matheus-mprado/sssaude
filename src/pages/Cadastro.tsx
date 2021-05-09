@@ -95,6 +95,9 @@ const signInFormSchema = yup.object().shape({
         .required("Digite um número Válido")
         .nullable()
         .typeError('Digite um número Válido'),
+
+    accept: yup.boolean()
+    .required("Necessário aceitar os termos.").oneOf([true], 'Necessário Aceitar os termos')
 })
 
 
@@ -109,6 +112,8 @@ export default function Cadastro() {
     const [selectRaca, setSelectRaca] = useState('')
     const [cep, setCep] = useState(0)
     const [accept, setAccept] = useState(false)
+    const [gestante, setGestante] = useState(false)
+    const [puerpera, setPuerpera] = useState(false)
 
     const [cepData, setCepData] = useState<CepData>({} as CepData)
     const [bairro, setBairro] = useState('');
@@ -122,7 +127,7 @@ export default function Cadastro() {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         api.post('/', values)
-            .then(response => response.data === 'ok' && router.push("/sucesso"))
+            .then(response => response.data === 'ok' && console.log(response))
             .catch(err => console.log(err))
 
 
@@ -218,8 +223,6 @@ export default function Cadastro() {
                         {...register('email')}
                     />
 
-
-
                     <Input
                         name="profissao"
                         type="text"
@@ -265,21 +268,41 @@ export default function Cadastro() {
                         label="Categoria"
                         error={errors.doenca}
                         {...register('doenca')}
-                        value={selectDoenca}
+                        {...setValue("doenca", selectDoenca)}
                         onChange={(e) => setSelectDoenca(e.target.value)}
                     >
                         <>
                             {categorys &&
                                 categorys.map(category => {
                                     return (
-
                                         <option value={category.id} key={category.id}>{category.categoria}</option>
-
                                     )
                                 })
                             }
                         </>
                     </Select>
+
+                    <Checkbox
+                        name="gestante"
+                        {...register('gestante')}
+                        isChecked={gestante}
+                        onChange={() => setGestante(!gestante)}
+                    >
+                        <Text fontSize="small">
+                            Gestante
+                        </Text>
+                    </Checkbox>
+
+                    <Checkbox
+                        name="puerpera"
+                        {...register('puerpera')}
+                        isChecked={puerpera}
+                        onChange={() => setGestante(!puerpera)}
+                    >
+                        <Text fontSize="small">
+                            Puérpera
+                        </Text>
+                    </Checkbox>
                 </Stack>
 
 
@@ -353,12 +376,14 @@ export default function Cadastro() {
                     label="DECLARO, para fins de direto, sob as penas da lei, que as informações prestadas para esta solicitação, são verdadeiros e autênticas. Tendo a ciência de que todas as informações prestadas poderão ser utilizadas pelos sistemas de saúde municipais, estaduais e federais."
                     {...register('accept')}
                     isChecked={accept}
-                    onChange={()=>setAccept(!accept)}
-                >   
+                    error={errors.accept}
+                    onChange={() => setAccept(!accept)}
+                >
                     <Text fontSize="small">
                         Aceitar
                     </Text>
                 </Checkbox>
+
                 <Button
                     type="submit"
                     mt="6"
