@@ -79,6 +79,9 @@ const signInFormSchema = yup.object().shape({
     genero: yup.string()
         .required("Selecione uma opção"),
 
+    doenca: yup.string()
+        .required("Selecione uma opção"),
+
     cep: yup.number()
         .required("Digite um CEP Válido")
         .nullable()
@@ -97,7 +100,7 @@ const signInFormSchema = yup.object().shape({
         .typeError('Digite um número Válido'),
 
     accept: yup.boolean()
-    .required("Necessário aceitar os termos.").oneOf([true], 'Necessário Aceitar os termos')
+        .required("Necessário aceitar os termos.").oneOf([true], 'Necessário Aceitar os termos')
 })
 
 
@@ -127,7 +130,7 @@ export default function Cadastro() {
         await new Promise(resolve => setTimeout(resolve, 2000));
 
         api.post('/', values)
-            .then(response => response.data === 'ok' && console.log(response))
+            .then(response => response.data === 'ok' && router.push("/sucesso"))
             .catch(err => console.log(err))
 
 
@@ -197,6 +200,7 @@ export default function Cadastro() {
                         label="CPF"
                         error={errors.cpf}
                         {...register('cpf')}
+                        mask="***.***.***/**"
                     />
 
                     <Input
@@ -205,6 +209,7 @@ export default function Cadastro() {
                         label="Data de Nascimento"
                         error={errors.dateBorn}
                         {...register('dateBorn')}
+                        mask="**/**/****"
                     />
 
                     <Input
@@ -212,6 +217,7 @@ export default function Cadastro() {
                         type="text"
                         label="Telefone"
                         error={errors.fone}
+                        mask="(**) * **** - ****"
                         {...register('fone')}
                     />
 
@@ -297,7 +303,7 @@ export default function Cadastro() {
                         name="puerpera"
                         {...register('puerpera')}
                         isChecked={puerpera}
-                        onChange={() => setGestante(!puerpera)}
+                        onChange={() => setPuerpera(!puerpera)}
                     >
                         <Text fontSize="small">
                             Puérpera

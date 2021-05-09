@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^2.4.0",
     "@types/node": "^15.0.2",
     "@types/react": "^17.0.5",
+    "@types/react-input-mask": "^3.0.0",
     "axios": "^0.21.1",
     "framer-motion": "4",
     "next": "10.2.0",
@@ -22,6 +23,7 @@
     "react-hook-form": "^7.4.2",
     "react-icons": "^4.2.0",
     "react-input-mask": "^2.0.4",
+    "react-maskedinput": "^4.0.1",
     "typescript": "^4.2.4",
     "yup": "^0.32.9"
   }
