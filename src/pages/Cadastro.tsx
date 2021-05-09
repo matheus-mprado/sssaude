@@ -117,6 +117,7 @@ export default function Cadastro() {
     const [accept, setAccept] = useState(false)
     const [gestante, setGestante] = useState(false)
     const [puerpera, setPuerpera] = useState(false)
+    const [isFoneResidencial, setIsFoneResidencial] = useState('');
 
     const [cepData, setCepData] = useState<CepData>({} as CepData)
     const [bairro, setBairro] = useState('');
@@ -193,7 +194,7 @@ export default function Cadastro() {
 
                     <Input
                         name="cpf"
-                        type="number"
+                        type="text"
                         label="CPF"
                         error={errors.cpf}
                         {...register('cpf')}
@@ -202,7 +203,7 @@ export default function Cadastro() {
 
                     <Input
                         name="dateBorn"
-                        type="number"
+                        type="text"
                         label="Data de Nascimento"
                         error={errors.dateBorn}
                         {...register('dateBorn')}
@@ -211,10 +212,11 @@ export default function Cadastro() {
 
                     <Input
                         name="fone"
-                        type="number"
+                        type="text"
                         label="Telefone"
                         error={errors.fone}
                         mask="(**) * **** - ****"
+                        onChange={(e)=>e.target.value.length}
                         {...register('fone')}
                     />
 
@@ -319,7 +321,7 @@ export default function Cadastro() {
                     >
                         <Input
                             name="cep"
-                            type="number"
+                            type="text"
                             label="CEP"
                             error={errors.cep}
                             {...register('cep')}
@@ -348,7 +350,7 @@ export default function Cadastro() {
 
                     <Input
                         name="numero"
-                        type="number"
+                        type="text"
                         label="Nº (Número da Residência)"
                         error={errors.numero}
                         {...register('numero')}
