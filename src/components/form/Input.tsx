@@ -18,7 +18,6 @@ const InputBase:ForwardRefRenderFunction<HTMLInputElement,InputProps> =
         <FormControl isInvalid={!!error}>
             { !!label && <FormLabel fontSize="small" htmlFor={name}>{label}</FormLabel>}
             <ChakraInput
-                as={InputMask}
                 id={name}
                 name={name}
                 focusBorderColor="blue.500"
@@ -29,7 +28,6 @@ const InputBase:ForwardRefRenderFunction<HTMLInputElement,InputProps> =
                 }}
                 size="lg"
                 ref={ref}
-                mask={mask}
                 {...rest}
             />
 

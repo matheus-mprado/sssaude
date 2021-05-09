@@ -3,6 +3,7 @@ import { Input } from "../components/form/Input";
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { api } from "../service/api";
 
 type SignInFormData = {
     namePrimary: string;
@@ -57,6 +58,11 @@ export default function Cadastro() {
 
     const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
         await new Promise(resolve => setTimeout(resolve, 2000));
+
+        api.post('/',values)
+            .then(response => console.log(response))
+            .catch(err => console.log(err))
+
         console.log(values)
     }
 
@@ -116,7 +122,6 @@ export default function Cadastro() {
                         label="Telefone"
                         error={errors.fone}
                         {...register('fone')}
-                        mask="(**)* **** - ****"
                     />
                 </Stack>
                 <Button
