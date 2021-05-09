@@ -132,9 +132,6 @@ export default function Cadastro() {
         api.post('/', values)
             .then(response => response.data === 'ok' && router.push("/sucesso"))
             .catch(err => console.log(err))
-
-
-        console.log(values)
     }
 
     function handleSetCEP(cep: number) {
