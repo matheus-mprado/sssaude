@@ -211,7 +211,7 @@ export default function Cadastro() {
 
                     <Input
                         name="fone"
-                        type="text"
+                        type="number"
                         label="Telefone"
                         error={errors.fone}
                         mask="(**) * **** - ****"
@@ -319,7 +319,7 @@ export default function Cadastro() {
                     >
                         <Input
                             name="cep"
-                            type="text"
+                            type="number"
                             label="CEP"
                             error={errors.cep}
                             {...register('cep')}
