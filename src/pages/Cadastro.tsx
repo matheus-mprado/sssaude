@@ -117,7 +117,7 @@ export default function Cadastro() {
     const [accept, setAccept] = useState(false)
     const [gestante, setGestante] = useState(false)
     const [puerpera, setPuerpera] = useState(false)
-    const [isFoneResidencial, setIsFoneResidencial] = useState('');
+    const [isFoneResidencial, setIsFoneResidencial] = useState(0);
 
     const [cepData, setCepData] = useState<CepData>({} as CepData)
     const [bairro, setBairro] = useState('');
@@ -214,9 +214,10 @@ export default function Cadastro() {
                         name="fone"
                         type="text"
                         label="Telefone"
+                        
                         error={errors.fone}
-                        mask="(**) * **** - ****"
-                        onChange={(e)=>e.target.value.length}
+                        mask={isFoneResidencial >18 ? "(**) * **** - ****" : "(**) **** - ****"}
+                        onChange={(e)=>setIsFoneResidencial(Number(e.target.value.length))}
                         {...register('fone')}
                     />
 

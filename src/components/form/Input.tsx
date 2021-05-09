@@ -23,6 +23,7 @@ const InputBase:ForwardRefRenderFunction<HTMLInputElement,InputProps> =
                 id={name}
                 name={name}
                 focusBorderColor="blue.500"
+                
                 bgColor="gray.50"
                 variant="filled"
                 maskChar='_'
