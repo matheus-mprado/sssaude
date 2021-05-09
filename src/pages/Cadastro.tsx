@@ -193,7 +193,7 @@ export default function Cadastro() {
 
                     <Input
                         name="cpf"
-                        type="text"
+                        type="number"
                         label="CPF"
                         error={errors.cpf}
                         {...register('cpf')}
@@ -202,7 +202,7 @@ export default function Cadastro() {
 
                     <Input
                         name="dateBorn"
-                        type="text"
+                        type="number"
                         label="Data de Nascimento"
                         error={errors.dateBorn}
                         {...register('dateBorn')}
@@ -348,7 +348,7 @@ export default function Cadastro() {
 
                     <Input
                         name="numero"
-                        type="text"
+                        type="number"
                         label="Nº (Número da Residência)"
                         error={errors.numero}
                         {...register('numero')}
