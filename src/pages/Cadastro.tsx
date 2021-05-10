@@ -11,6 +11,7 @@ import storage from 'local-storage-fallback'
 
 import { api } from "../service/api";
 import { Checkbox } from "../components/Checkbox";
+import Head from "next/head";
 
 
 type SignInFormData = {
@@ -136,7 +137,7 @@ export default function Cadastro() {
             .then(response => response.data === 'ok' && router.push("/sucesso"))
             .catch(err => console.log(err))
 
-        storage.setItem("saudeSS",JSON.stringify(values))
+        storage.setItem("saudeSS", JSON.stringify(values))
     }
 
     function handleSetCEP(cep: number) {
@@ -153,7 +154,7 @@ export default function Cadastro() {
     }
 
     // function teste() {
-        
+
     //     if(getValues('dateBorn')){
     //         const dateBorn = getValues('dateBorn');
     //     }else{
@@ -164,7 +165,7 @@ export default function Cadastro() {
     //     const AnoAtual = date.getFullYear();
     //     const MesAtual = date.getMonth() + 1;
     //     const DiaAtual = date.getDate();
-        
+
     //     console.log(AnoAtual,'anoatual')
 
     //     const dateParts = dateBorn.split('/');
@@ -198,251 +199,256 @@ export default function Cadastro() {
     }, [])
 
     return (
-        <Flex
-            align="flex-start"
-            px="4"
-            justify="center"
-        >
-
+        <>
+            <Head>
+                <title>Cadastro Comorbidades | Prefeitura de São Sebastião</title>
+            </Head>
             <Flex
-                as="form"
-                w="100%"
-                maxWidth={360}
-                bg="white"
-                p="8"
-                borderRadius={8}
-                flexDir="column"
-                onSubmit={handleSubmit(handleSignIn)}
+                align="flex-start"
+                px="4"
+                justify="center"
             >
-                <Text fontSize="medium" mb="4" fontWeight="600">
-                    1 - Faça seu cadastro
+
+                <Flex
+                    as="form"
+                    w="100%"
+                    maxWidth={360}
+                    bg="white"
+                    p="8"
+                    borderRadius={8}
+                    flexDir="column"
+                    onSubmit={handleSubmit(handleSignIn)}
+                >
+                    <Text fontSize="medium" mb="4" fontWeight="600">
+                        1 - Faça seu cadastro
                 </Text>
 
-                <Stack spacing="8">
-                    <Input
-                        name="namePrimary"
-                        type="text"
-                        label="Nome Completo"
-                        error={errors.namePrimary}
-                        {...register('namePrimary')}
-                    />
-
-                    <Input
-                        name="nameMother"
-                        type="text"
-                        label="Nome da mãe"
-                        error={errors.nameMother}
-                        {...register('nameMother')}
-                    />
-
-                    <Input
-                        name="cpf"
-                        type="text"
-                        label="CPF"
-                        error={errors.cpf}
-                        {...register('cpf')}
-                        mask="***.***.***/**"
-                    />
-
-                    <Input
-                        name="dateBorn"
-                        type="text"
-                        label="Data de Nascimento"
-                        error={errors.dateBorn}
-                        {...register('dateBorn')}
-                        mask="**/**/****"
-
-                    />
-
-                    <Input
-                        name="fone"
-                        type="text"
-                        label="Telefone Celular (Whats App)"
-                        error={errors.fone}
-                        mask={"(**) * **** - ****"}
-                        {...register('fone')}
-                    />
-
-                    <Input
-                        name="email"
-                        type="email"
-                        label="Email"
-                        error={errors.email}
-                        {...register('email')}
-                    />
-
-                    <Input
-                        name="profissao"
-                        type="text"
-                        label="Profissão"
-                        error={errors.profissao}
-                        {...register('work')}
-
-                    />
-
-                    <Select
-                        name="genero"
-                        label="Sexo"
-                        error={errors.genero}
-                        {...register('genero')}
-                        value={selectGenero}
-                        onChange={(e) => setSelectGenero(e.target.value)}
-                    >
-                        <>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Feminino">Feminino</option>
-                            <option value="Não Informado">Não informado</option>
-                        </>
-                    </Select>
-
-                    <Select
-                        name="raca"
-                        label="Raça"
-                        error={errors.raca}
-                        {...register('raca')}
-                        value={selectRaca}
-                        onChange={(e) => setSelectRaca(e.target.value)}
-                    >
-                        <>
-                            <option value="Branco">Branco</option>
-                            <option value="Pardo">Pardo</option>
-                            <option value="Preto">Preto</option>
-                            <option value="Amarelo">Amarelo</option>
-                        </>
-                    </Select>
-
-                    <Select
-                        name="doenca"
-                        label="Categoria"
-                        error={errors.doenca}
-                        {...register('doenca')}
-                        {...setValue("doenca", selectDoenca)}
-                        onChange={(e) => setSelectDoenca(e.target.value)}
-                    >
-                        <>
-                            {categorys &&
-                                categorys.map(category => {
-                                    return (
-                                        <option value={category.id} key={category.id}>{category.categoria}</option>
-                                    )
-                                })
-                            }
-                        </>
-                    </Select>
-
-                    <Checkbox
-                        name="gestante"
-                        {...register('gestante')}
-                        isChecked={gestante}
-                        onChange={() => setGestante(!gestante)}
-                    >
-                        <Text fontSize="small">
-                            Gestante
-                        </Text>
-                    </Checkbox>
-
-                    <Checkbox
-                        name="puerpera"
-                        {...register('puerpera')}
-                        isChecked={puerpera}
-                        onChange={() => setPuerpera(!puerpera)}
-                    >
-                        <Text fontSize="small">
-                            Puérpera
-                        </Text>
-                    </Checkbox>
-                </Stack>
-
-
-                <Text fontSize="medium" mb="4" mt="8" fontWeight="600">
-                    2 - Endereço
-                </Text>
-
-                <Stack spacing="8" mb="8">
-                    <Box
-                        position="relative"
-                    >
+                    <Stack spacing="8">
                         <Input
-                            name="cep"
+                            name="namePrimary"
                             type="text"
-                            label="CEP"
-                            error={errors.cep}
-                            {...register('cep')}
-                            onChange={(e) => setCep(Number(e.target.value))}
+                            label="Nome Completo"
+                            error={errors.namePrimary}
+                            {...register('namePrimary')}
                         />
 
-                        <Button
-                            size="sm"
-                            onClick={() => handleSetCEP(cep)}
-                            position="absolute"
-                            right="0"
-                            top="2.1rem"
+                        <Input
+                            name="nameMother"
+                            type="text"
+                            label="Nome da mãe"
+                            error={errors.nameMother}
+                            {...register('nameMother')}
+                        />
+
+                        <Input
+                            name="cpf"
+                            type="text"
+                            label="CPF"
+                            error={errors.cpf}
+                            {...register('cpf')}
+                            mask="***.***.***/**"
+                        />
+
+                        <Input
+                            name="dateBorn"
+                            type="text"
+                            label="Data de Nascimento"
+                            error={errors.dateBorn}
+                            {...register('dateBorn')}
+                            mask="**/**/****"
+
+                        />
+
+                        <Input
+                            name="fone"
+                            type="text"
+                            label="Telefone Celular (Whats App)"
+                            error={errors.fone}
+                            mask={"(**) * **** - ****"}
+                            {...register('fone')}
+                        />
+
+                        <Input
+                            name="email"
+                            type="email"
+                            label="Email"
+                            error={errors.email}
+                            {...register('email')}
+                        />
+
+                        <Input
+                            name="profissao"
+                            type="text"
+                            label="Profissão"
+                            error={errors.profissao}
+                            {...register('work')}
+
+                        />
+
+                        <Select
+                            name="genero"
+                            label="Sexo"
+                            error={errors.genero}
+                            {...register('genero')}
+                            value={selectGenero}
+                            onChange={(e) => setSelectGenero(e.target.value)}
                         >
-                            procurar
+                            <>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Não Informado">Não informado</option>
+                            </>
+                        </Select>
+
+                        <Select
+                            name="raca"
+                            label="Raça"
+                            error={errors.raca}
+                            {...register('raca')}
+                            value={selectRaca}
+                            onChange={(e) => setSelectRaca(e.target.value)}
+                        >
+                            <>
+                                <option value="Branco">Branco</option>
+                                <option value="Pardo">Pardo</option>
+                                <option value="Preto">Preto</option>
+                                <option value="Amarelo">Amarelo</option>
+                            </>
+                        </Select>
+
+                        <Select
+                            name="doenca"
+                            label="Categoria"
+                            error={errors.doenca}
+                            {...register('doenca')}
+                            {...setValue("doenca", selectDoenca)}
+                            onChange={(e) => setSelectDoenca(e.target.value)}
+                        >
+                            <>
+                                {categorys &&
+                                    categorys.map(category => {
+                                        return (
+                                            <option value={category.id} key={category.id}>{category.categoria}</option>
+                                        )
+                                    })
+                                }
+                            </>
+                        </Select>
+
+                        <Checkbox
+                            name="gestante"
+                            {...register('gestante')}
+                            isChecked={gestante}
+                            onChange={() => setGestante(!gestante)}
+                        >
+                            <Text fontSize="small">
+                                Gestante
+                        </Text>
+                        </Checkbox>
+
+                        <Checkbox
+                            name="puerpera"
+                            {...register('puerpera')}
+                            isChecked={puerpera}
+                            onChange={() => setPuerpera(!puerpera)}
+                        >
+                            <Text fontSize="small">
+                                Puérpera
+                        </Text>
+                        </Checkbox>
+                    </Stack>
+
+
+                    <Text fontSize="medium" mb="4" mt="8" fontWeight="600">
+                        2 - Endereço
+                </Text>
+
+                    <Stack spacing="8" mb="8">
+                        <Box
+                            position="relative"
+                        >
+                            <Input
+                                name="cep"
+                                type="text"
+                                label="CEP"
+                                error={errors.cep}
+                                {...register('cep')}
+                                onChange={(e) => setCep(Number(e.target.value))}
+                            />
+
+                            <Button
+                                size="sm"
+                                onClick={() => handleSetCEP(cep)}
+                                position="absolute"
+                                right="0"
+                                top="2.1rem"
+                            >
+                                procurar
                         </Button>
 
-                    </Box>
-                    <Input
-                        name="logradouro"
-                        type="text"
-                        label="Logradouro"
-                        error={errors.logradouro}
-                        {...setValue('logradouro', cepData.logradouro)}
-                        {...register('logradouro')}
-                    />
+                        </Box>
+                        <Input
+                            name="logradouro"
+                            type="text"
+                            label="Logradouro"
+                            error={errors.logradouro}
+                            {...setValue('logradouro', cepData.logradouro)}
+                            {...register('logradouro')}
+                        />
 
-                    <Input
-                        name="numero"
-                        type="text"
-                        label="Nº (Número da Residência)"
-                        error={errors.numero}
-                        {...register('numero')}
-                    />
+                        <Input
+                            name="numero"
+                            type="text"
+                            label="Nº (Número da Residência)"
+                            error={errors.numero}
+                            {...register('numero')}
+                        />
 
-                    <Input
-                        name="bairro"
-                        type="text"
-                        label="Bairro"
-                        error={errors.bairro}
-                        {...setValue('bairro', cepData.bairro)}
-                        {...register('bairro')}
-                    />
+                        <Input
+                            name="bairro"
+                            type="text"
+                            label="Bairro"
+                            error={errors.bairro}
+                            {...setValue('bairro', cepData.bairro)}
+                            {...register('bairro')}
+                        />
 
-                    <Input
-                        name="cidade"
-                        type="text"
-                        label="Cidade"
-                        value="São Sebastião"
-                        {...register('cidade')}
-                        isReadOnly={true}
+                        <Input
+                            name="cidade"
+                            type="text"
+                            label="Cidade"
+                            value="São Sebastião"
+                            {...register('cidade')}
+                            isReadOnly={true}
 
-                    />
-                </Stack>
+                        />
+                    </Stack>
 
-                <Checkbox
-                    name="accept"
-                    label="DECLARO, para fins de direto, sob as penas da lei, que as informações prestadas para esta solicitação, são verdadeiros e autênticas. Tendo a ciência de que todas as informações prestadas poderão ser utilizadas pelos sistemas de saúde municipais, estaduais e federais."
-                    {...register('accept')}
-                    isChecked={accept}
-                    error={errors.accept}
-                    onChange={() => setAccept(!accept)}
-                >
-                    <Text fontSize="small">
-                        Aceitar
+                    <Checkbox
+                        name="accept"
+                        label="DECLARO, para fins de direto, sob as penas da lei, que as informações prestadas para esta solicitação, são verdadeiros e autênticas. Tendo a ciência de que todas as informações prestadas poderão ser utilizadas pelos sistemas de saúde municipais, estaduais e federais."
+                        {...register('accept')}
+                        isChecked={accept}
+                        error={errors.accept}
+                        onChange={() => setAccept(!accept)}
+                    >
+                        <Text fontSize="small">
+                            Aceitar
                     </Text>
-                </Checkbox>
+                    </Checkbox>
 
-                <Button
-                    type="submit"
-                    mt="6"
-                    colorScheme="blue"
-                    size="lg"
-                    isLoading={isSubmitting}
+                    <Button
+                        type="submit"
+                        mt="6"
+                        colorScheme="blue"
+                        size="lg"
+                        isLoading={isSubmitting}
                     // onClick={()=>teste()}
-                >
-                    Cadastrar
+                    >
+                        Cadastrar
                 </Button>
-            </Flex>
-        </Flex >
+                </Flex>
+            </Flex >
+        </>
     )
 }

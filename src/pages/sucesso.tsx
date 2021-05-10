@@ -1,10 +1,12 @@
 import { Flex, Image, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import storage from 'local-storage-fallback'
+import Link from "next/link";
+import  Head  from "next/head";
+
 import { ItemSuccess } from "../components/utils/itemSuccess";
 import { api } from "../service/api";
-import { useRouter } from "next/router";
-import Link from "next/link";
 
 interface UsuarioProps {
     accept: boolean;
@@ -52,6 +54,11 @@ export default function Sucesso() {
 
 
     return (
+        <>
+        <Head>
+            <title>Em análise | Prefeitura de São Sebastião</title>
+            <link rel="shortcut icon" href="yellowcircle.png" type="image/png" />
+        </Head>
         <Flex
             flexDir="column"
             justify="center"
@@ -145,6 +152,6 @@ export default function Sucesso() {
                 </Link>
             </Flex>
         </Flex>
-
+        </>
     )
 }
