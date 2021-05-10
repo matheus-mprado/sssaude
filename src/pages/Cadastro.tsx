@@ -202,7 +202,7 @@ export default function Cadastro() {
         <>
             <Head>
                 <title>Cadastro Comorbidades | Prefeitura de São Sebastião</title>
-                <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
+                <link rel="shortcut icon" href="/favicon.png" type="image/png" />
             </Head>
             <Flex
                 align="flex-start"
@@ -255,7 +255,7 @@ export default function Cadastro() {
                         <Input
                             name="fone"
                             type="text"
-                            label="Telefone Celular (Whats App)"
+                            label="Telefone Celular (WhatsApp)"
                             error={errors.fone}
                             mask={"(**) * **** - ****"}
                             {...register('fone')}
@@ -401,8 +401,8 @@ export default function Cadastro() {
                         onChange={() => setAccept(!accept)}
                     >
                         <Text fontSize="small">
-                            Aceitar
-                    </Text>
+                            Eu aceito
+                        </Text>
                     </Checkbox>
 
                     <Button
