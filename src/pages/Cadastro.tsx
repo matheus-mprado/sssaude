@@ -42,6 +42,7 @@ interface Categoria {
 }
 
 const date = new Date();
+
 const dateConcat = (date.getFullYear() - 18) + "/" + (date.getMonth() + 1) + "/" + date.getDate();
 
 const signInFormSchema = yup.object().shape({
@@ -57,8 +58,8 @@ const signInFormSchema = yup.object().shape({
 
     cpf: yup.string()
         .required('CPF Obrigatório')
-        .min(11, "Digite seu CPF")
-        .max(11, "Digite seu CPFr"),
+        .min(14, "Digite seu CPF")
+        .max(14, "Digite seu CPF"),
 
     email: yup.string()
         .required('E-mail obrigatório')
@@ -103,10 +104,9 @@ const signInFormSchema = yup.object().shape({
         .required("Necessário aceitar os termos.").oneOf([true], 'Necessário Aceitar os termos')
 })
 
-
 export default function Cadastro() {
 
-    const { setValue, register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
+    const { getValues, setValue, register, handleSubmit, formState: { errors, isSubmitting } } = useForm({
         resolver: yupResolver(signInFormSchema)
     });
 
@@ -117,6 +117,7 @@ export default function Cadastro() {
     const [accept, setAccept] = useState(false)
     const [gestante, setGestante] = useState(false)
     const [puerpera, setPuerpera] = useState(false)
+    const [idade, setIdade] = useState(0)
     const [isFoneResidencial, setIsFoneResidencial] = useState(0);
 
     const [cepData, setCepData] = useState<CepData>({} as CepData)
@@ -130,8 +131,14 @@ export default function Cadastro() {
 
         await new Promise(resolve => setTimeout(resolve, 2000));
 
+        if(teste()){
+            console.log("boa")
+        }else{
+            console.log("não")
+        }
+
         api.post('/', values)
-            .then(response => response.data === 'ok' && router.push("/sucesso"))
+            .then(response => response.data === 'ok' && console.log("/sucesso"))
             .catch(err => console.log(err))
     }
 
@@ -146,12 +153,51 @@ export default function Cadastro() {
         api.get('/categorias/')
             .then(response => setCategorys(response.data))
             .catch(err => console.log(err))
-
     }
+
+    // function teste() {
+        
+    //     if(getValues('dateBorn')){
+    //         const dateBorn = getValues('dateBorn');
+    //     }else{
+    //         const dateBorn = '00/00/0000';
+    //     }
+
+    //     const date = new Date();
+    //     const AnoAtual = date.getFullYear();
+    //     const MesAtual = date.getMonth() + 1;
+    //     const DiaAtual = date.getDate();
+        
+    //     console.log(AnoAtual,'anoatual')
+
+    //     const dateParts = dateBorn.split('/');
+    //     const anoNasc = Number(dateParts[2]);
+    //     const mesNasc = Number(dateParts[1]);
+    //     const diaNasc = Number(dateParts[0]);
+
+    //     let idade = AnoAtual - anoNasc;
+
+    //     console.log(anoNasc,'anoNasc')
+    //     console.log(getValues('dateBorn'),'data')
+
+    //     MesAtual < mesNasc
+    //         ? idade - 1
+    //         : MesAtual === mesNasc
+    //             ? DiaAtual < diaNasc
+    //                 ? idade = idade - 1
+    //                 : idade
+    //             : idade
+
+    //     if(idade >= 18){
+    //         console.log(idade)
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // }
 
     useEffect(() => {
         getCategorys()
-
     }, [])
 
     return (
@@ -208,16 +254,15 @@ export default function Cadastro() {
                         error={errors.dateBorn}
                         {...register('dateBorn')}
                         mask="**/**/****"
+
                     />
 
                     <Input
                         name="fone"
                         type="text"
-                        label="Telefone"
-                        
+                        label="Telefone Celular (Whats App)"
                         error={errors.fone}
-                        mask={isFoneResidencial  < 18 ? "(**) * **** - ****" : "(**) **** - ****"}
-                        onChange={(e)=>setIsFoneResidencial(Number(e.target.value.length))}
+                        mask={"(**) * **** - ****"}
                         {...register('fone')}
                     />
 
@@ -396,6 +441,7 @@ export default function Cadastro() {
                     colorScheme="blue"
                     size="lg"
                     isLoading={isSubmitting}
+                    onClick={()=>teste()}
                 >
                     Cadastrar
                 </Button>
