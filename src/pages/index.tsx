@@ -9,6 +9,8 @@ export default function Home() {
     <>
       <Head>
         <title>Início | Prefeitura de São Sebastião</title>
+        <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
+
       </Head>
       <Flex
         flexDir="column"

@@ -202,6 +202,7 @@ export default function Cadastro() {
         <>
             <Head>
                 <title>Cadastro Comorbidades | Prefeitura de São Sebastião</title>
+                <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
             </Head>
             <Flex
                 align="flex-start"
