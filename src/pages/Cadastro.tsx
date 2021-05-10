@@ -7,6 +7,7 @@ import * as yup from 'yup'
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import storage from 'local-storage-fallback'
 
 import { api } from "../service/api";
 import { Checkbox } from "../components/Checkbox";
@@ -131,15 +132,11 @@ export default function Cadastro() {
 
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        if(teste()){
-            console.log("boa")
-        }else{
-            console.log("não")
-        }
-
         api.post('/', values)
-            .then(response => response.data === 'ok' && console.log("/sucesso"))
+            .then(response => response.data === 'ok' && router.push("/sucesso"))
             .catch(err => console.log(err))
+
+        storage.setItem("saudeSS",JSON.stringify(values))
     }
 
     function handleSetCEP(cep: number) {
@@ -441,7 +438,7 @@ export default function Cadastro() {
                     colorScheme="blue"
                     size="lg"
                     isLoading={isSubmitting}
-                    onClick={()=>teste()}
+                    // onClick={()=>teste()}
                 >
                     Cadastrar
                 </Button>
