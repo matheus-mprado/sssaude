@@ -4,6 +4,7 @@ import storage from 'local-storage-fallback'
 import { ItemSuccess } from "../components/utils/itemSuccess";
 import { api } from "../service/api";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface UsuarioProps {
     accept: boolean;
@@ -92,7 +93,7 @@ export default function Sucesso() {
                     <ItemSuccess type="Status" value="Em análise" />
                 </VStack>
 
-                <Flex bg="gray.50" mt="6" flexDir="column">
+                <Flex bg="gray.50" mt="6" flexDir="column" pb="4">
                     <Text
                         px="6"
                         py="4"
@@ -130,13 +131,16 @@ export default function Sucesso() {
                     </Text>
                 </Flex>
 
-                <Image
-                    src="/logos.png"
-                    alt="logos"
-                    align="center"
-                    height="175px"
-                    margin="0 auto"
-                />
+                <Link href="/" passHref>
+                    <Image
+                        as="a"
+                        src="/logos.png"
+                        alt="logos"
+                        align="center"
+                        height="175px"
+                        margin="0 auto"
+                    />
+                </Link>
             </Flex>
         </Flex>
 
