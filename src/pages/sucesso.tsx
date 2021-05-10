@@ -87,7 +87,7 @@ export default function Sucesso() {
                     align="flex-start"
 
                 >
-                    <ItemSuccess type="nome" value={usuario.namePrimary} />
+                    <ItemSuccess type="Nome" value={usuario.namePrimary} />
                     <ItemSuccess type="CPF" value={usuario.cpf} />
                     <ItemSuccess type="Nascimento" value={usuario.dateBorn} />
                     <ItemSuccess type="Status" value="Em análise" />
@@ -100,14 +100,14 @@ export default function Sucesso() {
                     >
                         Seu cadastro foi realizado com sucesso, e recebido por nossa equipe, lembrando que no dia da vacinação será
                         necessário apresentar <Text as="span" fontWeight="600">CPF, um documento com foto, compovante de endereço
-                        e documento que comprove a comorbidade</Text>
+                        e documento que comprove a comorbidade.</Text>
                     </Text>
 
                     <Text
                         mt="2"
                         px="6"
                     >
-                        Se no dia agendado, o municipe não apresentar todos os documentos necessários <Text as="span" textTransform="uppercase" color="red" fontWeight="600">A vacinação não sera realizada.</Text>
+                        Se no dia agendado, o munícipe não apresentar todos os documentos necessários <Text as="span" textTransform="uppercase" color="red" fontWeight="600">A vacinação não será realizada.</Text>
                     </Text>
 
                 </Flex>
