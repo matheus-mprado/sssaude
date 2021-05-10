@@ -132,14 +132,16 @@ export default function Sucesso() {
                 </Flex>
 
                 <Link href="/" passHref>
+
                     <Image
-                        as="a"
                         src="/logos.png"
                         alt="logos"
                         align="center"
                         height="175px"
                         margin="0 auto"
+                        cursor="pointer"
                     />
+
                 </Link>
             </Flex>
         </Flex>
