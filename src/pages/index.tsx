@@ -63,6 +63,9 @@ export default function Home() {
               bg="#0c4ffd"
               mt="2"
               cursor="pointer"
+              _hover={{
+                filter:"brightness(0.95)"
+              }}
             >
               <Text
                 textTransform="uppercase"
@@ -85,6 +88,9 @@ export default function Home() {
                 bg="#0c4ffd"
                 mt="6"
                 cursor="pointer"
+                _hover={{
+                  filter:"brightness(0.95)"
+                }}
               >
                 <Text
                   textTransform="uppercase"
@@ -106,8 +112,10 @@ export default function Home() {
               bg="#f7b52d"
               mt="6"
               cursor="pointer"
-
-            >
+              _hover={{
+                filter:"brightness(0.95)"
+              }}
+            > 
               <Text
                 textTransform="uppercase"
                 fontSize="xl"
