@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button, Flex, Image, Text, VStack } from "@chakra-ui/react";
 import storage from 'local-storage-fallback'
-import  Head  from 'next/head';
+import Head from 'next/head';
 
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Head>
         <title>Início | Prefeitura de São Sebastião</title>
-        <link rel="shortcut icon" href="/favicon.png" type="image/png"/>
+        <link rel="shortcut icon" href="/favicon.png" type="image/png" />
 
       </Head>
       <Flex
@@ -92,7 +92,7 @@ export default function Home() {
                   color="white"
                 >
                   verificar status
-            </Text>
+                </Text>
               </Button>
             </Link>
 

@@ -234,14 +234,6 @@ export default function Cadastro() {
                         />
 
                         <Input
-                            name="nameMother"
-                            type="text"
-                            label="Nome da mãe"
-                            error={errors.nameMother}
-                            {...register('nameMother')}
-                        />
-
-                        <Input
                             name="cpf"
                             type="text"
                             label="CPF"
@@ -276,16 +268,6 @@ export default function Cadastro() {
                             error={errors.email}
                             {...register('email')}
                         />
-
-                        <Input
-                            name="profissao"
-                            type="text"
-                            label="Profissão"
-                            error={errors.profissao}
-                            {...register('work')}
-
-                        />
-
                         <Select
                             name="genero"
                             label="Sexo"
@@ -301,21 +283,6 @@ export default function Cadastro() {
                             </>
                         </Select>
 
-                        <Select
-                            name="raca"
-                            label="Raça"
-                            error={errors.raca}
-                            {...register('raca')}
-                            value={selectRaca}
-                            onChange={(e) => setSelectRaca(e.target.value)}
-                        >
-                            <>
-                                <option value="Branco">Branco</option>
-                                <option value="Pardo">Pardo</option>
-                                <option value="Preto">Preto</option>
-                                <option value="Amarelo">Amarelo</option>
-                            </>
-                        </Select>
 
                         <Select
                             name="doenca"
@@ -354,8 +321,8 @@ export default function Cadastro() {
                             onChange={() => setPuerpera(!puerpera)}
                         >
                             <Text fontSize="small">
-                                Puérpera
-                        </Text>
+                                Puérpera (Mulheres com até 45 dias após o parto)
+                            </Text>
                         </Checkbox>
                     </Stack>
 
