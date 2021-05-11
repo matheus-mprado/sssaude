@@ -119,8 +119,6 @@ export default function Cadastro() {
 
     const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
 
-        await new Promise(resolve => setTimeout(resolve, 2000));
-
         api.post('/', values)
             .then(response => response.data === 'ok' && router.push("/sucesso"))
             .catch(err => console.log(err))
@@ -140,47 +138,6 @@ export default function Cadastro() {
             .then(response => setCategorys(response.data))
             .catch(err => console.log(err))
     }
-
-    // function teste() {
-
-    //     if(getValues('dateBorn')){
-    //         const dateBorn = getValues('dateBorn');
-    //     }else{
-    //         const dateBorn = '00/00/0000';
-    //     }
-
-    //     const date = new Date();
-    //     const AnoAtual = date.getFullYear();
-    //     const MesAtual = date.getMonth() + 1;
-    //     const DiaAtual = date.getDate();
-
-    //     console.log(AnoAtual,'anoatual')
-
-    //     const dateParts = dateBorn.split('/');
-    //     const anoNasc = Number(dateParts[2]);
-    //     const mesNasc = Number(dateParts[1]);
-    //     const diaNasc = Number(dateParts[0]);
-
-    //     let idade = AnoAtual - anoNasc;
-
-    //     console.log(anoNasc,'anoNasc')
-    //     console.log(getValues('dateBorn'),'data')
-
-    //     MesAtual < mesNasc
-    //         ? idade - 1
-    //         : MesAtual === mesNasc
-    //             ? DiaAtual < diaNasc
-    //                 ? idade = idade - 1
-    //                 : idade
-    //             : idade
-
-    //     if(idade >= 18){
-    //         console.log(idade)
-    //         return true;
-    //     }else{
-    //         return false;
-    //     }
-    // }
 
     useEffect(() => {
         getCategorys()
