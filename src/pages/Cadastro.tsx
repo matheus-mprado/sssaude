@@ -52,12 +52,7 @@ const signInFormSchema = yup.object().shape({
         .min(5, "Digite seu nome Completo")
         .max(255, "Digite um nome Menor")
         .required('Nome Obrigatório'),
-
-    nameMother: yup.string()
-        .required('Nome Obrigatório')
-        .min(5, "Digite seu nome completo de sua mãe")
-        .max(255, "Digite um nome Menor"),
-
+        
     cpf: yup.string()
         .required('CPF Obrigatório')
         .min(14, "Digite seu CPF")
@@ -74,13 +69,6 @@ const signInFormSchema = yup.object().shape({
         .required('Número Obrigatório')
         .min(8, "Digite um número válido")
         .max(255, "Digite um número Menor"),
-
-    profissao: yup.string()
-        .min(8, "Digite um número válido")
-        .max(255, "Digite um número Menor"),
-
-    genero: yup.string()
-        .required("Selecione uma opção"),
 
     doenca: yup.string()
         .required("Selecione uma opção"),
