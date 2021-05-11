@@ -118,6 +118,7 @@ export default function Cadastro() {
     const router = useRouter();
 
     const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
+        console.log("teste")
 
         api.post('/', values)
             .then(response => response.data === 'ok' && router.push("/sucesso"))
