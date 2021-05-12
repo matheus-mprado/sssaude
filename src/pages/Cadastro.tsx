@@ -52,7 +52,7 @@ const signInFormSchema = yup.object().shape({
         .min(5, "Digite seu nome Completo")
         .max(255, "Digite um nome Menor")
         .required('Nome Obrigatório'),
-        
+
     cpf: yup.string()
         .required('CPF Obrigatório')
         .min(14, "Digite seu CPF")
@@ -102,36 +102,39 @@ export default function Cadastro() {
 
     const [selectGenero, setSelectGenero] = useState('')
     const [selectDoenca, setSelectDoenca] = useState('')
-    const [selectRaca, setSelectRaca] = useState('')
     const [cep, setCep] = useState(0)
     const [accept, setAccept] = useState(false)
     const [gestante, setGestante] = useState(false)
     const [puerpera, setPuerpera] = useState(false)
-    const [idade, setIdade] = useState(0)
-    const [isFoneResidencial, setIsFoneResidencial] = useState(0);
+    const [submitting, setSubmitting] = useState(false)
 
     const [cepData, setCepData] = useState<CepData>({} as CepData)
+
     const [bairro, setBairro] = useState('');
+    const [rua, setRua] = useState('');
 
     const [categorys, setCategorys] = useState([])
 
     const router = useRouter();
 
     const handleSignIn: SubmitHandler<SignInFormData> = async (values, event) => {
-        console.log("teste")
 
-        api.post('/', values)
+        await api.post('/', values)
             .then(response => response.data === 'ok' && router.push("/sucesso"))
             .catch(err => console.log(err))
 
         storage.setItem("saudeSS", JSON.stringify(values))
     }
 
-    function handleSetCEP(cep: number) {
-        axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(response => setCepData(response.data))
-            .catch(err => console.log('Não localizado'))
-        console.log(cepData)
+    async function handleSetCEP(cep: number) {
+        const cepDataGet = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        
+        setCepData(cepDataGet.data)
+
+        // console.log(cepDataGet.data.bairro)
+            setBairro(cepDataGet.data.bairro)
+            setRua(cepDataGet.data.logradouro)
+        
     }
 
     function getCategorys() {
@@ -143,6 +146,14 @@ export default function Cadastro() {
     useEffect(() => {
         getCategorys()
     }, [])
+
+    useEffect(() => {
+        if (isSubmitting) {
+            setSubmitting(true)
+        } else {
+            setSubmitting(false)
+        }
+    }, [isSubmitting])
 
     return (
         <>
@@ -168,7 +179,7 @@ export default function Cadastro() {
                 >
                     <Text fontSize="medium" mb="4" fontWeight="600">
                         1 - Faça seu cadastro
-                </Text>
+                    </Text>
 
                     <Stack spacing="8">
                         <Input
@@ -306,8 +317,9 @@ export default function Cadastro() {
                             type="text"
                             label="Logradouro"
                             error={errors.logradouro}
-                            {...setValue('logradouro', cepData.logradouro)}
+                            {...setValue('logradouro', rua)}
                             {...register('logradouro')}
+                            onChange={(e)=>setRua(e.target.value)}
                         />
 
                         <Input
@@ -323,8 +335,9 @@ export default function Cadastro() {
                             type="text"
                             label="Bairro"
                             error={errors.bairro}
-                            {...setValue('bairro', cepData.bairro)}
+                            {...setValue('bairro', bairro)}
                             {...register('bairro')}
+                            onChange={(e)=>setBairro(e.target.value)}
                         />
 
                         <Input
@@ -357,7 +370,7 @@ export default function Cadastro() {
                         colorScheme="blue"
                         size="lg"
                         isLoading={isSubmitting}
-                    // onClick={()=>teste()}
+                        isDisabled={isSubmitting}
                     >
                         Cadastrar
                 </Button>

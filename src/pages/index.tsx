@@ -64,7 +64,7 @@ export default function Home() {
               mt="2"
               cursor="pointer"
               _hover={{
-                filter:"brightness(0.95)"
+                filter: "brightness(0.95)"
               }}
             >
               <Text
@@ -89,7 +89,7 @@ export default function Home() {
                 mt="6"
                 cursor="pointer"
                 _hover={{
-                  filter:"brightness(0.95)"
+                  filter: "brightness(0.95)"
                 }}
               >
                 <Text
@@ -104,6 +104,30 @@ export default function Home() {
 
           }
 
+          <Link href="/calculadoraIMC" passHref>
+            <Button
+              w="100%"
+              py="7"
+              as="a"
+              bg="#0c4ffd"
+              mt="6"
+              cursor="pointer"
+              _hover={{
+                filter: "brightness(0.95)"
+              }}
+            >
+              <Text
+                textTransform="uppercase"
+                fontSize="xl"
+                fontWeight="700"
+                color="gray.50"
+              >
+                CALCULADORA IMC
+            </Text>
+            </Button>
+
+          </Link>
+
           <Link href="http://saude.saosebastiao.sp.gov.br/" passHref>
             <Button
               w="100%"
@@ -113,9 +137,9 @@ export default function Home() {
               mt="6"
               cursor="pointer"
               _hover={{
-                filter:"brightness(0.95)"
+                filter: "brightness(0.95)"
               }}
-            > 
+            >
               <Text
                 textTransform="uppercase"
                 fontSize="xl"
@@ -127,9 +151,6 @@ export default function Home() {
             </Button>
 
           </Link>
-
-
-
 
           <Image
             src="/ilustra.svg"

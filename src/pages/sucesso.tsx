@@ -1,4 +1,4 @@
-import { Flex, Image, Text, VStack } from "@chakra-ui/react";
+import { Flex, IconButton, Image, Text, VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import storage from 'local-storage-fallback'
@@ -7,6 +7,7 @@ import Head from "next/head";
 
 import { ItemSuccess } from "../components/utils/itemSuccess";
 import { api } from "../service/api";
+import { BiLeftArrowAlt } from "react-icons/bi";
 
 interface UsuarioProps {
     accept: boolean;
@@ -57,15 +58,37 @@ export default function Sucesso() {
         <>
             <Head>
                 <title>Em análise | Prefeitura de São Sebastião</title>
-                <link rel="shortcut icon" href="yellowcircle.png" type="image/png" />
+                <link rel="shortcut icon" href="/yellowcircle.png" type="image/png" />
             </Head>
             <Flex
                 flexDir="column"
                 justify="center"
                 w="100%"
-                pt="35px"
                 position="relative"
             >
+                <Text
+                    px="6"
+                    fontWeight="600"
+                    fontSize="smaller"
+                    textAlign="center"
+                    py="4"
+                >
+                    STATUS DA SOLICITAÇÃO
+                </Text>
+
+                <Link href="/" passHref>
+                    <IconButton
+                        as="a"
+                        variant="unstyled"
+                        aria-label="Back page"
+                        position="absolute"
+                        top="12.5px"
+                        left="15px"
+                        h="0"
+                        m="0"
+                        icon={<BiLeftArrowAlt size="25" />}
+                    />
+                </Link>
                 <Flex
                     w="100%"
                     flexDir="column"
@@ -105,12 +128,12 @@ export default function Sucesso() {
                             px="6"
                             py="4"
                         >
-                            Seu cadastro foi realizado com sucesso <b>e recebido pela nossa equipe. No dia da vacinação,</b> 
-                            será necessário apresentar CPF, um documento com foto, <b>comprovante de endereço</b> e documento 
+                            Seu cadastro foi realizado com sucesso <b>e recebido pela nossa equipe. No dia da vacinação,</b>
+                            será necessário apresentar CPF, um documento com foto, <b>comprovante de endereço</b> e documento
                             que <b>certifique</b> a comorbidade.
-                           
-                           
-                     
+
+
+
                         </Text>
 
                         <Text
