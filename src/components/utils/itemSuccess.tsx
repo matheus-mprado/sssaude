@@ -1,6 +1,6 @@
-import { Flex, Text } from "@chakra-ui/layout";
+import { Flex, Text } from "@chakra-ui/react";
 
-export function ItemSuccess({type, value}) {
+export function ItemSuccess({ type, value }) {
     return (
         <Flex
             align="center"
