@@ -7,9 +7,10 @@ interface ContentPagesProps {
     title: string;
     back?: boolean;
     children: ReactNode;
+    full?: boolean;
 }
 
-export function ContentPages({ title, back, children }: ContentPagesProps) {
+export function ContentPages({ title, back, children,full }: ContentPagesProps) {
     return (
         <Flex
             flexDir="column"
@@ -23,6 +24,7 @@ export function ContentPages({ title, back, children }: ContentPagesProps) {
                 fontSize="smaller"
                 textAlign="center"
                 py={back ? "4" : "2"}
+                textTransform="uppercase"
             >
                 {title}
             </Text>
@@ -49,7 +51,7 @@ export function ContentPages({ title, back, children }: ContentPagesProps) {
                 px="4"
                 py="4"
                 bg="white"
-                h={["calc(100vh  - 35px)", "100%"]}
+                h={full ? ["calc(100vh  - 35px)", "100%"] : "100%"}
                 borderRadius="2rem 2rem 0 0"
             >
                 {children}

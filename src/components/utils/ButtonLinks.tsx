@@ -9,7 +9,7 @@ interface ButtonLinksProps{
 
 export function ButtonLinks({ name, color, link }:ButtonLinksProps) {
     return (
-        <Link href={`/${link}`} passHref>
+        <Link href={`${link}`} passHref>
             <Button
                 w="100%"
                 py="7"

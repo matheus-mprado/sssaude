@@ -37,32 +37,32 @@ export default function Home() {
 
         <ButtonLinks
           color
-          link="Cadastro"
+          link="/Cadastro"
           name="PESSOAS COM COMORBIDADE"
         />
 
         <ButtonLinks
           color
-          link="calculadoraIMC"
+          link="/calculadoraIMC"
           name="Calculadora IMC"
         />
 
         <ButtonLinks
-          link="TabelaComorbidades"
+          link="/TabelaComorbidades"
           color
           name="TABELA COMORBIDADES"
         />
 
         {storage.getItem('saudeSS') &&
           <ButtonLinks
-            link="sucesso"
+            link="/sucesso"
             name="verificar status"
           />
         }
 
         <ButtonLinks
           link="http://saude.saosebastiao.sp.gov.br/"
-          name="PESSOAS COM COMORBIDADE"
+          name="VACINAS REMANECENTES"
         />
 
 
