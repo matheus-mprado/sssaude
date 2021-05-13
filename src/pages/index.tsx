@@ -4,6 +4,7 @@ import storage from 'local-storage-fallback'
 import Head from 'next/head';
 import { ContentPages } from '../components/utils/ContentPages';
 import { ButtonLinks } from '../components/utils/ButtonLinks';
+import { FooterHome } from '../components/Home/FooterHome';
 
 
 export default function Home() {
@@ -40,9 +41,20 @@ export default function Home() {
           name="PESSOAS COM COMORBIDADE"
         />
 
+        <ButtonLinks
+          color
+          link="calculadoraIMC"
+          name="Calculadora IMC"
+        />
+
+        <ButtonLinks
+          link="/TabelaComorbidades"
+          color
+          name="TABELA COMORBIDADES"
+        />
+
         {storage.getItem('saudeSS') &&
           <ButtonLinks
-            color
             link="sucesso"
             name="verificar status"
           />
@@ -54,33 +66,9 @@ export default function Home() {
         />
 
 
-        <Image
-          src="/ilustra.svg"
-          h="100%"
-        />
-        <Flex
-          position="absolute"
-          bottom="0"
-          w="100%"
-        >
 
-          <Flex
-            h="8rem"
-            bg="#f7b52d"
-            w="100%"
-            align="center"
-            justify="center"
-          >
-            <Image
-              src="/logos.png"
-              alt="logos"
-              mt="-100px"
-              align="center"
-              height="175px"
-            />
 
-          </Flex>
-        </Flex>
+        <FooterHome />
 
       </ContentPages>
     </>
