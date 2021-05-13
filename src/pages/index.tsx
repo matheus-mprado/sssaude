@@ -48,7 +48,7 @@ export default function Home() {
         />
 
         <ButtonLinks
-          link="/TabelaComorbidades"
+          link="TabelaComorbidades"
           color
           name="TABELA COMORBIDADES"
         />

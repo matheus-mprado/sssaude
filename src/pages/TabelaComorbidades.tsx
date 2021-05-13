@@ -1,5 +1,13 @@
+import { ContentPages } from "../components/utils/ContentPages";
+
 export default function TableListCategorys(){
     return(
-        <h1>🧪 </h1>
+        <ContentPages
+            title="lista comorbidades"
+            back
+        >
+
+
+        </ContentPages>
     )
 }
