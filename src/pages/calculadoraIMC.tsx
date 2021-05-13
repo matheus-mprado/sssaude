@@ -101,7 +101,7 @@ export default function CalculadoraIMC() {
                         color="#0c4ffd"
                         lineHeight="2.25rem"
                     >
-                        Faça o calculo do seu IMC
+                        Faça o cálculo do seu IMC
                     </Text>
 
                     <Flex
@@ -140,7 +140,7 @@ export default function CalculadoraIMC() {
                                     filter:'brightness(0.9)',
                                 }}
                             >
-                                CALCULAR IMC
+                                CALCULE SEU IMC
                             </Button>
                         </VStack>
                     </Flex>

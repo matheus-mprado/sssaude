@@ -17,7 +17,7 @@ export default function Home() {
       </Head>
 
 
-      <ContentPages title="SECRETARIA DE SAÚDE">
+      <ContentPages title="SECRETARIA DE SAÚDE" full>
         <Text
           fontSize="3xl"
           fontWeight="700"

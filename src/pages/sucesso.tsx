@@ -65,8 +65,6 @@ export default function Sucesso() {
                 title="STATUS DA SOLICITAÇÃO"
                 back
             >
-
-
                 <Text
                     px="6"
                     fontSize="3xl"

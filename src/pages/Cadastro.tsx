@@ -1,17 +1,20 @@
 import { Flex, Stack, Button, Text, InputGroup, InputRightElement, Box } from "@chakra-ui/react";
-import { Input } from "../components/form/Input";
-import { Select } from "../components/form/select";
 import axios from "axios";
+import Head from "next/head";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/router'
 import * as yup from 'yup'
-import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import storage from 'local-storage-fallback'
 
+import { IoSearch } from 'react-icons/io5'
+
 import { api } from "../service/api";
+import { Input } from "../components/form/Input";
+import { Select } from "../components/form/select";
 import { Checkbox } from "../components/Checkbox";
-import Head from "next/head";
+import { ContentPages } from "../components/utils/ContentPages";
 
 
 type SignInFormData = {
@@ -128,13 +131,13 @@ export default function Cadastro() {
 
     async function handleSetCEP(cep: number) {
         const cepDataGet = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-        
+
         setCepData(cepDataGet.data)
 
         // console.log(cepDataGet.data.bairro)
-            setBairro(cepDataGet.data.bairro)
-            setRua(cepDataGet.data.logradouro)
-        
+        setBairro(cepDataGet.data.bairro)
+        setRua(cepDataGet.data.logradouro)
+
     }
 
     function getCategorys() {
@@ -161,12 +164,11 @@ export default function Cadastro() {
                 <title>Cadastro Comorbidades | Prefeitura de São Sebastião</title>
                 <link rel="shortcut icon" href="/favicon.png" type="image/png" />
             </Head>
-            <Flex
-                align="flex-start"
-                px="4"
-                justify="center"
-            >
+            <ContentPages
+                title="cadastro comorbidades"
+                back
 
+            >
                 <Flex
                     as="form"
                     w="100%"
@@ -306,10 +308,18 @@ export default function Cadastro() {
                                 onClick={() => handleSetCEP(cep)}
                                 position="absolute"
                                 right="0"
-                                top="2.1rem"
+                                bottom="0"
+                                p="6"
+                                variant="unstyled"
+                                align="center"
+                                justify="center"
+                                display="flex"
+                                _hover={{
+                                    boxShadow:"none"
+                                }}
                             >
-                                procurar
-                        </Button>
+                                <IoSearch size="24" />
+                            </Button>
 
                         </Box>
                         <Input
@@ -319,7 +329,7 @@ export default function Cadastro() {
                             error={errors.logradouro}
                             {...setValue('logradouro', rua)}
                             {...register('logradouro')}
-                            onChange={(e)=>setRua(e.target.value)}
+                            onChange={(e) => setRua(e.target.value)}
                         />
 
                         <Input
@@ -337,7 +347,7 @@ export default function Cadastro() {
                             error={errors.bairro}
                             {...setValue('bairro', bairro)}
                             {...register('bairro')}
-                            onChange={(e)=>setBairro(e.target.value)}
+                            onChange={(e) => setBairro(e.target.value)}
                         />
 
                         <Input
@@ -373,9 +383,10 @@ export default function Cadastro() {
                         isDisabled={isSubmitting}
                     >
                         Cadastrar
-                </Button>
+                    </Button>
                 </Flex>
-            </Flex >
+            </ContentPages>
+
         </>
     )
 }
